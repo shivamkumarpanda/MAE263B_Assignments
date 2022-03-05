@@ -1,0 +1,22 @@
+function [theta] = inverseKinematicsScara3(X, Y, a1, a2)
+
+
+    c2 = (X^2 + Y^2 - a1^2 - a2^2)/(2*a1*a2);
+    s2 = (1 - c2^2)^(0.5);
+    
+    t2s1 = atan2(s2, c2);
+    t2s2 = atan2(-s2, c2);
+    
+    if(t2s1 >= 0)
+        theta2 = t2s1;
+    else
+        theta2 = t2s2;
+    end
+    
+    beta = atan2(X, Y);
+    psi = acos((X^2 + Y^2 + a1^2 - a2^2)/(2*a1*(X^2 + Y^2)^(0.5)));
+    theta1 = -(beta + psi - pi/2);
+
+    theta = [theta1; theta2];
+
+end
